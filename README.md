@@ -225,6 +225,8 @@ func CORSMiddleware() gin.HandlerFunc {
 
 ### Установка и запуск
 
+#### Вариант 1: Прямой запуск
+
 1. **Клонирование проекта**
 ```bash
 git clone <repository-url>
@@ -242,6 +244,37 @@ go run main.go
 ```
 
 4. **Доступ к приложению**
+- Веб-интерфейс: http://localhost:8080
+- Swagger документация: http://localhost:8080/api/swagger/index.html
+
+#### Вариант 2: Запуск через Docker
+
+1. **Сборка и запуск с Docker Compose**
+```bash
+# Сборка и запуск
+docker-compose up --build
+
+# Запуск в фоновом режиме
+docker-compose up -d --build
+
+# Остановка
+docker-compose down
+```
+
+2. **Запуск только с Docker**
+```bash
+# Сборка образа
+docker build -t taskreload .
+
+# Запуск контейнера
+docker run -d -p 8080:8080 -v $(pwd)/data:/root/data --name taskreload-app taskreload
+
+# Остановка контейнера
+docker stop taskreload-app
+docker rm taskreload-app
+```
+
+3. **Доступ к приложению**
 - Веб-интерфейс: http://localhost:8080
 - Swagger документация: http://localhost:8080/api/swagger/index.html
 
@@ -298,7 +331,6 @@ curl "http://localhost:8080/api/tasks?status=completed"
    - Конфигурация через environment variables
    - Логирование в файл
    - Метрики и мониторинг
-   - Docker контейнеризация
 
 3. **Производительность**
    - Кэширование с Redis
